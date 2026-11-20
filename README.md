@@ -45,15 +45,19 @@ Buka **Sketch > Include Library > Manage Libraries**, lalu install:
 
 | Library | Penulis | Versi |
 |---|---|---|
-| **MFRC522** | GithubCommunity | 1.4.10 |
+| **MFRC522** | GithubCommunity | **1.4.12** |
 | **UniversalTelegramBot** | Brian Lough | 1.3.0 |
 | **ArduinoJson** | Benoit Blanchon | **6.21.x (versi 6, BUKAN 7)** |
 
 > ⚠️ **Penting:** UniversalTelegramBot 1.3.0 hanya cocok dengan ArduinoJson **versi 6**. Kalau terlanjur install ArduinoJson 7, hapus dan install 6.21.5 — kalau tidak, compile akan gagal.
 >
-> Library lain (SPI, WiFi, WiFiClientSecure) sudah bawaan board ESP32, tidak perlu install.
+> ⚠️ **MFRC522 wajib 1.4.12** (bukan 1.4.10): versi 1.4.10 **gagal compile** di ESP32 core 3.x/4.x — error `ordered comparison of pointer with integer zero` di `MFRC522Extended.cpp` (compiler GCC baru menolak kode lama itu). Versi 1.4.12 sudah diperbaiki.
+>
+> Ketiga library di atas juga sudah disertakan di folder `libraries/` repo ini (file `.zip`) — di Arduino IDE pilih **Sketch > Include Library > Add .ZIP Library**, lalu pilih file zip-nya. Library lain (SPI, WiFi, WiFiClientSecure) sudah bawaan board ESP32, tidak perlu install.
 
 Board yang dipakai: **esp32 by Espressif Systems** (install lewat Boards Manager, pilih board "ESP32 Dev Module").
+
+✅ **Sudah dicek compile** (20 Nov 2026, arduino-cli 1.6.0, ESP32 core 4.0.0): berhasil, sketch 1.074.409 byte (81% flash), RAM 50.672 byte (15%).
 
 Tidak mau pakai Telegram? Ubah `#define USE_TELEGRAM 1` menjadi `0` di atas file `RfidPulang.ino` — maka UniversalTelegramBot dan ArduinoJson tidak dibutuhkan, kunci tetap jalan dan laporan hanya lewat Serial Monitor.
 
